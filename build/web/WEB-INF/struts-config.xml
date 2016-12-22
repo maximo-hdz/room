@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE struts-config PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+<struts-config>
+	<!-- ================================================ Form Bean Definitions -->
+	<form-beans>
+		<form-bean name="LoginFormBean" type="com.notmusa.room.forms.LoginFormBean"/>
+		<form-bean name="AdminFormBean" type="com.notmusa.room.forms.AdminFormBean"/>
+		<form-bean name="NewRoomFormBean" type="com.notmusa.room.forms.NewRoomFormBean"/>
+		<form-bean name="SalasFormBean" type="com.notmusa.room.forms.SalasFormBean"/>
+		<form-bean name="EditarFormBean" type="com.notmusa.room.forms.EditarFormBean"/>
+		<form-bean name="EliminarFormBean" type="com.notmusa.room.forms.EliminarFormBean"/>
+		<form-bean name="EliminarReservFormBean" type="com.notmusa.room.forms.EliminarReservFormBean"/>
+		<form-bean name="SalirFormBean" type="org.apache.struts.action.DynaActionForm"/>
+		<form-bean name="ReservacionFormBean" type="com.notmusa.room.forms.ReservacionFormBean"/>
+		<form-bean name="ReservacionFormBean2" type="com.notmusa.room.forms.ReservacionFormBean2"/>
+
+		<form-bean name="GuardarReservFormBean" type="org.apache.struts.action.DynaActionForm"/>
+		<form-bean name="ResPermFormBean" type="com.notmusa.room.forms.ResPermFormBean" />
+	</form-beans>
+	<!-- =========================================== Global Forward Definitions -->
+	<global-forwards>
+		<forward name="error" path="/adm/error.jsp"/>
+		<forward name="prohibido" path="/adm/login.jsp"/>
+	</global-forwards>
+	<!-- =========================================== Action Mapping Definitions -->
+	<action-mappings>
+		<action path="/Login" type="com.notmusa.room.actions.LoginAction" name="LoginFormBean" input="/adm/login.jsp">
+			<forward name="success" path="/adm/admin.jsp"/>
+			<forward name="faild" path="/adm/login.jsp"/>
+		</action>
+		<action path="/Salir" type="com.notmusa.room.actions.SalirAction" name="SalirFormBean">
+			<forward name="success" path="/adm/login.jsp"/>
+		</action>
+		<action path="/Reservacion" type="com.notmusa.room.actions.ReservacionAction" name="ReservacionFormBean" input="/user/reservas.jsp" parameter="operacion">
+			<forward name="refresh" path="/user/reservas.jsp"/>
+			<forward name="salvar" path="/user/guardar.jsp"/>
+			<forward name="salir" path="/principal.jsp"/>
+			<forward name="success" path="/user/reservas.jsp"/>
+			<forward name="faild" path="/user/reservas.jsp"/>
+		</action>
+		<action path="/Reservacion2" type="com.notmusa.room.actions.ReservacionAction2" name="ReservacionFormBean2" input="/user/reservas2.jsp" parameter="operacion">
+			<forward name="refresh" path="/user/reservas2.jsp"/>
+			<forward name="salvar" path="/user/guardar.jsp"/>
+			<forward name="salir" path="/principal.jsp"/>
+			<forward name="success" path="/user/reservas2.jsp"/>
+			<forward name="faild" path="/user/reservas2.jsp"/>
+		</action>
+		<action path="/Admin" type="com.notmusa.room.actions.AdminAction" name="AdminFormBean" parameter="operacion">
+			<forward name="rooms" path="/adm/rooms.jsp"/>
+			<forward name="faild" path="/adm/login.jsp"/>
+			<forward name="refresh" path="/adm/admin.jsp"/>
+			<forward name="eliminar" path="/adm/confirmar.jsp"/>
+		</action>
+		<action path="/NewRoom" type="com.notmusa.room.actions.NewRoomAction" name="NewRoomFormBean" input="/adm/newroom.jsp" scope="request" parameter="operacion">
+			<forward name="success" path="/adm/rooms.jsp"/>
+		</action>
+		<action path="/Salas" type="com.notmusa.room.actions.SalasAction" name="SalasFormBean" parameter="operacion">
+			<forward name="newroom" path="/adm/newroom.jsp"/>
+			<forward name="back" path="/adm/admin.jsp"/>
+		</action>
+		<action path="/Editar" type="com.notmusa.room.actions.EditarAction" name="EditarFormBean" parameter="operacion">
+			<forward name="success" path="/adm/rooms.jsp"/>
+			<forward name="edit" path="/adm/editroom.jsp"/>
+		</action>
+		<action path="/Eliminar" type="com.notmusa.room.actions.EliminarAction" name="EliminarFormBean" parameter="operacion">
+			<forward name="success" path="/adm/rooms.jsp"/>
+			<forward name="drop" path="/adm/drop.jsp"/>
+		</action>
+		<action path="/EliminarReserv" type="com.notmusa.room.actions.EliminarReservAction" name="EliminarReservFormBean" parameter="operacion">
+			<forward name="success" path="/adm/admin.jsp"/>
+		</action>
+	       <action path="/altas" forward="/adm/altas.jsp" /> 
+       	<action path="/regresar" forward="/adm/admin.jsp" />        
+       	<action path="/Permanentes" type="com.notmusa.room.actions.ResPermanentesAction" name="ResPermFormBean" input="/adm/altas.jsp" parameter="operacion">
+	       	<forward name="refresh" path="/adm/altas.jsp" />      
+	       </action>
+	</action-mappings>
+	<message-resources parameter="MessageResources"/>
+</struts-config>
